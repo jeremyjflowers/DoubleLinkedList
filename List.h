@@ -4,7 +4,7 @@ template <typename T>
 class List
 {
 public:
-	List();
+	List() {};
 	List(List<T>&);
 
 	/// <summary>
@@ -89,13 +89,32 @@ public:
 	/// <returns></returns>
 	int getLength() const;
 
-	void operator = (const List<T>&, List otherList);
+	void operator =(const List<T>& otherList);
 
 private:
 	Node<T> m_first, m_head;
 	Node<T> m_last, m_tail;
 	int m_nodeCount;
 };
+
+template<typename T>
+inline Iterator<T> List<T>::begin(Iterator<T>)
+{
+	return m_first;
+}
+
+template<typename T>
+inline Iterator<T> List<T>::end(Iterator<T>)
+{
+	return m_last;
+}
+
+template<typename T>
+inline void List<T>::pushFront(const T& value)
+{
+	Node<T> newNode.data = value;
+	newNode.previous = begin;
+}
 
 template<typename T>
 inline bool List<T>::insert(const T& value, int index)
@@ -134,4 +153,16 @@ inline bool List<T>::remove(const T& value)
 	delete(N);
 		
 	return true;
+}
+
+template<typename T>
+inline void List<T>::operator=(const List<T>& otherList)
+{
+	Iterator<T> tempIter = new Iter();
+	do
+	{
+		for (int i = 0; i < getLength(); i++)
+			tempIter.m_current.data =
+			tempIter++;
+	} while (tempIter != otherList.m_tail);
 }
