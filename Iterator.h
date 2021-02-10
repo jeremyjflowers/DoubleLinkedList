@@ -52,5 +52,5 @@ inline const bool Iterator<T>::operator!=(const Iterator<T>& iter)
 template<typename T>
 inline T Iterator<T>::operator*()
 {
-	return *m_current.data;
+	return m_current->data;
 }
