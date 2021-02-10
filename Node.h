@@ -3,7 +3,7 @@ template <typename T>
 class Node
 {
 public:
-	Node();
+	Node() {};
 	Node(T value);
 
 	Node<T>* next;
