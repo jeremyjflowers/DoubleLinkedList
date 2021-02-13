@@ -184,7 +184,7 @@ inline bool List<T>::remove(const T& value)
 			iter.m_current.next.previous = iter.m_current.previous;
 			iter.m_current.next = iter.m_current.next;
 
-			delete(this);
+			delete(iter.m_current);
 			m_nodeCount--;
 			return true;
 		}
