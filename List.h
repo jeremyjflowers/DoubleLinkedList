@@ -127,7 +127,8 @@ inline void List<T>::destroy()
 template<typename T>
 inline void List<T>::pushFront(const T& value)
 {
-	Node<T> newNode.data = value;
+	Node<T> newNode = new Node<T>();
+	newNode.data = value;
 	newNode.next = m_first;
 	m_first = newNode;
 	m_nodeCount++;
@@ -136,7 +137,8 @@ inline void List<T>::pushFront(const T& value)
 template<typename T>
 inline void List<T>::pushBack(const T& value)
 {
-	Node<T> newNode.data = value;
+	Node<T> newNode = new Node<T>(); 
+	newNode.data = value;
 	m_last->next = newNode;
 	newNode->previous = m_last;
 	m_last = newNode;
@@ -204,7 +206,8 @@ inline void List<T>::sort()
 			getData(jter, j);
 			if (jter.m_current.data < iter.m_current.data)
 			{
-				Iterator<T> temp = jter;
+				Iterator<T> temp = new Iterator<T>();
+				temp = jter;
 				jter = iter;
 				iter = temp;
 			}
@@ -262,13 +265,13 @@ inline int List<T>::getLength() const
 template<typename T>
 inline void List<T>::operator=(const List<T>& otherList)
 {
-	Iterator<T> tempIter = new Iterator(begin());
-	Iterator<T> tempIterOther = new Iterator(otherList->m_first));
+	Iterator<T> tempIter = new Iterator<T>(begin());
+	Iterator<T> tempIterOther = new Iterator<T>(otherList->m_first));
 	do
 	{
 		for (int i = 0; i < otherList->getLength(); i++)
 		{
 			tempIter->m_current = tempIterOther->m_current;
 		}
-	} while (tempIter != otherList.m_tail);
+	} while (tempIter.m_current != otherList.m_tail);
 }
