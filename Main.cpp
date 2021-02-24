@@ -8,7 +8,7 @@ int Main()
 
 	exampleList->pushFront(1);
 	exampleList->pushFront(3);
-	exampleList->pushFront(2);
+	exampleList->pushBack(2);
 	exampleList->pushFront(5);
 	exampleList->pushFront(4);
 	exampleList->print();

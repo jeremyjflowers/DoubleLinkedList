@@ -1,5 +1,6 @@
 #pragma once
 #include "Iterator.h"
+#include <iostream>
 template <typename T>
 class List
 {
@@ -12,14 +13,14 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	const Iterator<T> begin(Iterator<T>);
+	const Iterator<T> begin();
 
 	/// <summary>
 	/// Returns the next item after the last Node in the List
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	const Iterator<T> end(Iterator<T>);
+	const Iterator<T> end();
 
 	/// <summary>
 	/// Deletes all nodes in the List
@@ -104,13 +105,13 @@ inline List<T>::List(List<T>& otherList)
 }
 
 template<typename T>
-inline const Iterator<T> List<T>::begin(Iterator<T>)
+inline const Iterator<T> List<T>::begin()
 {
 	return m_first;
 }
 
 template<typename T>
-inline const Iterator<T> List<T>::end(Iterator<T>)
+inline const Iterator<T> List<T>::end()
 {
 	return m_last;
 }
@@ -127,22 +128,36 @@ inline void List<T>::destroy()
 template<typename T>
 inline void List<T>::pushFront(const T& value)
 {
-	Node<T> newNode = new Node<T>();
-	newNode.data = value;
-	newNode.next = m_first;
-	m_first = newNode;
+	//Node<T> newNode = new Node<T>();
+	//newNode.data = value;
+	//m_first.previous = newNode;
+	//newNode.next = m_first;
+	//m_first = newNode;
+	//newNode.previous = nullptr;
+
+	Node<T>* newNode = new Node<T>(value);
+	m_first.previous = newNode;
+	newNode->next = new Node<T>(m_first.data);
+	newNode->previous = nullptr;
+
 	m_nodeCount++;
 }
 
 template<typename T>
 inline void List<T>::pushBack(const T& value)
 {
-	Node<T> newNode = new Node<T>(); 
-	newNode.data = value;
-	m_last->next = newNode;
-	newNode->previous = m_last;
-	m_last = newNode;
+	//Node<T> newNode = new Node<T>(); 
+	//newNode.data = value;
+	//m_last->next = newNode;
+	//newNode->previous = m_last;
+	//m_last = newNode;
+	//newNode->next = nullptr;
+
+	Node<T>* newNode = new Node<T>(value);
+	m_last.next = newNode;
+	newNode->previous = new Node<T>(m_last.data);
 	newNode->next = nullptr;
+
 	m_nodeCount++;
 }
 
@@ -161,7 +176,7 @@ inline bool List<T>::insert(const T& value, int index)
 	iter.m_current.previous->next = newNode;
 	iter.m_current.previous = newNode;
 
-	Node.previous = newNode;
+	newNode.previous = newNode;
 
 	if (iter.m_current == m_head)
 		m_head = newNode;
@@ -176,7 +191,7 @@ inline bool List<T>::insert(const T& value, int index)
 template<typename T>
 inline bool List<T>::remove(const T& value)
 {
-	Iterator<T> iter = Iterator();
+	Iterator<T> iter = Iterator<T>();
 	for (Iterator<int> iter = begin(); iter != end(); ++iter)
 		if (contains(value))
 		{
@@ -200,13 +215,13 @@ inline void List<T>::sort()
 	Iterator<T> jter = end();
 	for (int i = 0; i < getLength(); i++)
 	{
-		for (int j = getLength()--; j > i; j--)
+		for (int j = getLength() - 1; j > i; j--)
 		{
 			getData(iter, j - 1);
 			getData(jter, j);
-			if (jter.m_current.data < iter.m_current.data)
+			if (*jter < *iter)
 			{
-				Iterator<T> temp = new Iterator<T>();
+				Iterator<T> temp;
 				temp = jter;
 				jter = iter;
 				iter = temp;
@@ -266,12 +281,12 @@ template<typename T>
 inline void List<T>::operator=(const List<T>& otherList)
 {
 	Iterator<T> tempIter = new Iterator<T>(begin());
-	Iterator<T> tempIterOther = new Iterator<T>(otherList->m_first));
-	do
+	Iterator<T> tempIterOther = new Iterator<T>(otherList->m_first);
+	while (tempIter.m_current != otherList.m_tail)
 	{
 		for (int i = 0; i < otherList->getLength(); i++)
 		{
 			tempIter->m_current = tempIterOther->m_current;
 		}
-	} while (tempIter.m_current != otherList.m_tail);
+	};
 }
