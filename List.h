@@ -13,14 +13,14 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	const Iterator<T> begin();
+	Iterator<T> begin() const;
 
 	/// <summary>
 	/// Returns the next item after the last Node in the List
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	const Iterator<T> end();
+	Iterator<T> end() const;
 
 	/// <summary>
 	/// Deletes all nodes in the List
@@ -105,21 +105,21 @@ inline List<T>::List(List<T>& otherList)
 }
 
 template<typename T>
-inline const Iterator<T> List<T>::begin()
+inline Iterator<T> List<T>::begin() const
 {
-	return m_first;
+	return Iterator<T>(m_first);
 }
 
 template<typename T>
-inline const Iterator<T> List<T>::end()
+inline Iterator<T> List<T>::end() const
 {
-	return m_last;
+	return Iterator<T>(m_last);
 }
 
 template<typename T>
 inline void List<T>::destroy()
 {
-	for (Iterator<int> iter = begin(); iter != end(); ++iter)
+	for (Iterator<T> iter = begin(); iter != end(); ++iter)
 	{
 		remove(iter.m_current);
 	}
@@ -192,7 +192,7 @@ template<typename T>
 inline bool List<T>::remove(const T& value)
 {
 	Iterator<T> iter = Iterator<T>();
-	for (Iterator<int> iter = begin(); iter != end(); ++iter)
+	for (Iterator<T> iter = begin(); iter != end(); ++iter)
 		if (contains(value))
 		{
 			if (iter == m_head)
@@ -231,9 +231,9 @@ inline void List<T>::sort()
 }
 
 template<typename T>
-inline void List<T>::print() const
+inline void List<T>::print() const 
 {
-	for (Iterator<int> iter = begin(); iter != end(); ++iter)
+	for (Iterator<T> iter = begin(); iter != end(); ++iter)
 		std::cout << *iter << std::endl;
 }
 
